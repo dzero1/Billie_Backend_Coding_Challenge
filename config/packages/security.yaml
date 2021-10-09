@@ -10,13 +10,31 @@ security:
             entity:
                 class: App\Entity\User
                 property: username
+
+        api_user_provider:
+            entity:
+                class: App\Entity\User
+                property: apiToken
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             anonymous: lazy
+            stateless: true
             provider: app_user_provider
+            json_login:
+                check_path: /login
+                
+        api:
+            pattern: ^/api*
+            anonymous: lazy
+            provider: api_user_provider
+            logout: ~
+            guard:
+                authenticators:
+                    - App\Security\BearerAuthenticator
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -29,3 +47,6 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+
+        - { path: '^/login' }
+        - { path: '^/api', roles: ROLE_USER }
