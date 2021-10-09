@@ -2,36 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Company;
+use App\Entity\CompanyUsers;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Company|null find($id, $lockMode = null, $lockVersion = null)
- * @method Company|null findOneBy(array $criteria, array $orderBy = null)
- * @method Company[]    findAll()
- * @method Company[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method CompanyUsers|null find($id, $lockMode = null, $lockVersion = null)
+ * @method CompanyUsers|null findOneBy(array $criteria, array $orderBy = null)
+ * @method CompanyUsers[]    findAll()
+ * @method CompanyUsers[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CompanyRepository extends ServiceEntityRepository
+class CompanyUsersRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Company::class);
-    }
-
-    public function register($name, $debter_limit)
-    {
-        $company = new Company();
-        $company->setName($name);
-        $company->setDebtorLimit($debter_limit);
-        $this->_em->persist($company);
-        $this->_em->flush();
-
-        return $company->getId();
+        parent::__construct($registry, CompanyUsers::class);
     }
 
     // /**
-    //  * @return Company[] Returns an array of Company objects
+    //  * @return CompanyUsers[] Returns an array of CompanyUsers objects
     //  */
     /*
     public function findByExampleField($value)
@@ -48,7 +37,7 @@ class CompanyRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Company
+    public function findOneBySomeField($value): ?CompanyUsers
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')
