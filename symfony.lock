@@ -147,6 +147,15 @@
     "nikic/php-parser": {
         "version": "v4.13.0"
     },
+    "phpdocumentor/reflection-common": {
+        "version": "2.2.0"
+    },
+    "phpdocumentor/reflection-docblock": {
+        "version": "5.2.2"
+    },
+    "phpdocumentor/type-resolver": {
+        "version": "1.5.1"
+    },
     "phpstan/phpdoc-parser": {
         "version": "0.5.7"
     },
@@ -322,6 +331,9 @@
     "symfony/property-access": {
         "version": "v4.4.30"
     },
+    "symfony/property-info": {
+        "version": "v4.4.31"
+    },
     "symfony/proxy-manager-bridge": {
         "version": "v4.4.27"
     },
@@ -363,6 +375,9 @@
     "symfony/security-http": {
         "version": "v4.4.30"
     },
+    "symfony/serializer": {
+        "version": "v4.4.31"
+    },
     "symfony/service-contracts": {
         "version": "v2.4.0"
     },
@@ -393,6 +408,9 @@
     },
     "symfony/yaml": {
         "version": "v4.4.29"
+    },
+    "webmozart/assert": {
+        "version": "1.10.0"
     },
     "willdurand/jsonp-callback-validator": {
         "version": "v1.1.0"

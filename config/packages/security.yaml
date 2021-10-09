@@ -20,22 +20,25 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
+
+        login:
+            pattern: ^/login*
             anonymous: lazy
             stateless: true
             provider: app_user_provider
             json_login:
                 check_path: /login
-                
-        api:
-            pattern: ^/api*
+
+        main:
             anonymous: lazy
+            stateless: true
             provider: api_user_provider
             logout: ~
             guard:
                 authenticators:
                     - App\Security\BearerAuthenticator
 
+                
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 
@@ -49,4 +52,7 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
 
         - { path: '^/login' }
-        - { path: '^/api', roles: ROLE_USER }
+        # - { path: '^/api', roles: [ROLE_USER, ROLE_COMPANY_ADMIN] }
+        - { path: '^/api/company', roles: ROLE_COMPANY_ADMIN }
+        - { path: '^/api/invoice', roles: ROLE_COMPANY_ADMIN }
+        - { path: '^/api/pay', roles: ROLE_USER }
