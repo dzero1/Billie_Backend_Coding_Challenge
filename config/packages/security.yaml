@@ -52,7 +52,5 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
 
         - { path: '^/login' }
-        # - { path: '^/api', roles: [ROLE_USER, ROLE_COMPANY_ADMIN] }
-        - { path: '^/api/company', roles: ROLE_COMPANY_ADMIN }
-        - { path: '^/api/invoice', roles: ROLE_COMPANY_ADMIN }
-        - { path: '^/api/pay', roles: ROLE_USER }
+        - { path: '^/api/*', roles: [ROLE_ADMIN] }
+        - { path: '^/api/pay', roles: [ROLE_ADMIN, ROLE_USER] }
