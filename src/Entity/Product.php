@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductsRepository;
+use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ProductsRepository::class)
+ * @ORM\Entity(repositoryClass=ProductRepository::class)
  */
-class Products
+class Product
 {
     /**
      * @ORM\Id
@@ -23,10 +23,15 @@ class Products
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="products")
+     * @ORM\Column(type="string", length=500, nullable=true)
+     */
+    private $description;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Invoice::class, inversedBy="products")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $company;
+    private $invoice;
 
     /**
      * @ORM\Column(type="float")
@@ -34,7 +39,7 @@ class Products
     private $quantity;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2)
+     * @ORM\Column(type="decimal", precision=8, scale=2)
      */
     private $price;
 
@@ -60,14 +65,26 @@ class Products
         return $this;
     }
 
-    public function getCompany(): ?Company
+    public function getDescription(): ?string
     {
-        return $this->company;
+        return $this->description;
     }
 
-    public function setCompany(?Company $company): self
+    public function setDescription(?string $description): self
     {
-        $this->company = $company;
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getInvoice(): ?Invoice
+    {
+        return $this->invoice;
+    }
+
+    public function setInvoice(?Invoice $invoice): self
+    {
+        $this->invoice = $invoice;
 
         return $this;
     }

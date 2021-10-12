@@ -30,13 +30,13 @@ class Company
     private $debtor_limit;
 
     /**
-     * @ORM\OneToMany(targetEntity=Products::class, mappedBy="company", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Invoice::class, mappedBy="company")
      */
-    private $products;
+    private $invoices;
 
     public function __construct()
     {
-        $this->products = new ArrayCollection();
+        $this->invoices = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -69,29 +69,29 @@ class Company
     }
 
     /**
-     * @return Collection|Products[]
+     * @return Collection|Invoice[]
      */
-    public function getProducts(): Collection
+    public function getInvoices(): Collection
     {
-        return $this->products;
+        return $this->invoices;
     }
 
-    public function addProduct(Products $product): self
+    public function addInvoice(Invoice $invoice): self
     {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-            $product->setCompany($this);
+        if (!$this->invoices->contains($invoice)) {
+            $this->invoices[] = $invoice;
+            $invoice->setCompany($this);
         }
 
         return $this;
     }
 
-    public function removeProduct(Products $product): self
+    public function removeInvoice(Invoice $invoice): self
     {
-        if ($this->products->removeElement($product)) {
+        if ($this->invoices->removeElement($invoice)) {
             // set the owning side to null (unless already changed)
-            if ($product->getCompany() === $this) {
-                $product->setCompany(null);
+            if ($invoice->getCompany() === $this) {
+                $invoice->setCompany(null);
             }
         }
 
