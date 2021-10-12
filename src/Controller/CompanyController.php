@@ -9,8 +9,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CompanyController extends BaseController
 {
-
-    public function __construct(CompanyRepository $companyRepository) {
+    public function __construct(CompanyRepository $companyRepository)
+    {
         $this->companyRepository = $companyRepository;
     }
 
@@ -35,11 +35,11 @@ class CompanyController extends BaseController
             !isset($parameters['name']) && empty($parameters['name']) ||
             !isset($parameters['debter_limit']) && empty($parameters['debter_limit']) ||
             !is_numeric($parameters['debter_limit'])
-        ){
+        ) {
             return $this->response('Missing required informations', 'error');
         } else {
             $registerd = $this->companyRepository->register($parameters['name'], $parameters['debter_limit']);
-            if ($registerd){
+            if ($registerd) {
                 return $this->response($registerd);
             } else {
                 return $this->response('Error register a company', 'error');
@@ -47,4 +47,13 @@ class CompanyController extends BaseController
         }
     }
 
+    /**
+     * @Route("/api/company/:id/invoice", name="Create an invoice", methods={"POST"}, format="json")
+     */
+    public function createInvoice(Request $request): Response
+    {
+        $parameters = json_decode($request->getContent(), true);
+        
+        return $this->response('Error register a company', 'error');
+    }
 }

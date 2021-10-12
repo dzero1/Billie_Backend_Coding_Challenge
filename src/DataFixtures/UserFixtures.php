@@ -21,13 +21,13 @@ class UserFixtures extends Fixture
         $user = new User();
         $user->setUsername('admin');
         $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
-        $user->setPassword($this->passwordEncoder->encodePassword( $user, 'admin' ));
+        $user->setPassword($this->passwordEncoder->encodePassword($user, 'admin'));
         $manager->persist($user);
 
         $user = new User();
         $user->setUsername('buyer');
         $user->setRoles(['ROLE_USER']);
-        $user->setPassword($this->passwordEncoder->encodePassword( $user, 'buyer' ));
+        $user->setPassword($this->passwordEncoder->encodePassword($user, 'buyer'));
         $manager->persist($user);
 
         $manager->flush();

@@ -11,7 +11,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SecurityController extends BaseController
 {
-    public function __construct(UserRepository $userRepository) {
+    public function __construct(UserRepository $userRepository)
+    {
         $this->userRepository = $userRepository;
     }
 
@@ -22,7 +23,7 @@ class SecurityController extends BaseController
     {
         $user = $this->getUser();
 
-        if ($user){
+        if ($user) {
             $this->userRepository->upgradeToken($user);
 
             return $this->json([
