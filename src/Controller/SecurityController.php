@@ -32,7 +32,7 @@ class SecurityController extends BaseController
             $this->userRepository->upgradeToken($user);
 
             $response = [
-                'username' => $user->getId(),
+                'id' => $user->getId(),
                 'username' => $user->getUsername(),
                 'apiToken' => $user->getApiToken(),
                 'roles' => $user->getRoles(),
