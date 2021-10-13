@@ -19,6 +19,25 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
+    /**
+     * @return Product[] Returns an array of Product objects
+     */
+    public function add($invoice, $name, $description, $quantity, $price, $unit, $image)
+    {
+        $product = new Product();
+        $product->setInvoice($invoice);
+        $product->setName($name);
+        $product->setDescription($description);
+        $product->setQuantity($quantity);
+        $product->setPrice($price);
+        $product->setUnit($unit);
+        $product->setImage($image);
+        $this->_em->persist($product);
+        $this->_em->flush();
+        return $product;
+    }
+   
+
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */

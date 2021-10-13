@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Invoice;
+use DateTimeImmutable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,6 +18,23 @@ class InvoiceRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Invoice::class);
+    }
+
+    /**
+     * @return Invoice[] Returns an array of Invoice objects
+     */
+    public function create($company, $code, $description, $debtor, $date)
+    {
+        $invoice = new Invoice();
+        $invoice->setCompany($company);
+        $invoice->setCode($code);
+        $invoice->setDescription($description);
+        $invoice->setDate($date);
+        $invoice->setDebtor($debtor);
+        $invoice->setCreatedAt(new DateTimeImmutable());
+        $this->_em->persist($invoice);
+        $this->_em->flush();
+        return $invoice;
     }
 
     // /**

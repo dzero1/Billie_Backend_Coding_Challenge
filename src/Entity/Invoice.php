@@ -54,6 +54,12 @@ class Invoice
      */
     private $products;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="invoices")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $debtor;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -162,6 +168,18 @@ class Invoice
                 $product->setInvoice(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDebtor(): ?User
+    {
+        return $this->debtor;
+    }
+
+    public function setDebtor(?User $debtor): self
+    {
+        $this->debtor = $debtor;
 
         return $this;
     }

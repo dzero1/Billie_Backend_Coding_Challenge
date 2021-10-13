@@ -48,6 +48,11 @@ class Product
      */
     private $image;
 
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $unit;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,6 +126,18 @@ class Product
     public function setImage(?string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getUnit(): ?string
+    {
+        return $this->unit;
+    }
+
+    public function setUnit(?string $unit): self
+    {
+        $this->unit = $unit;
 
         return $this;
     }
