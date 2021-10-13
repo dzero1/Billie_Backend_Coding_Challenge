@@ -31,13 +31,15 @@ class SecurityController extends BaseController
         if ($user) {
             $this->userRepository->upgradeToken($user);
 
-            $this->logger->info('login response: ', $user);
-
-            return $this->json([
+            $response = [
                 'username' => $user->getUsername(),
                 'apiToken' => $user->getApiToken(),
                 'roles' => $user->getRoles(),
-            ]);
+            ];
+
+            $this->logger->info('login response: ', $response);
+
+            return $this->json($response);
         } else {
             return $this->json([
                 'status' => false,
