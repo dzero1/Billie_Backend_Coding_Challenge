@@ -30,9 +30,21 @@ class CompanyController extends BaseController
     {
         $this->logger->info('fn Company index', [$id]);
         if ($id) {
-            return $this->response($this->companyRepository->findOneBy(['id' => $id]));
+            $companies = [$this->companyRepository->findOneBy(['id' => $id])];
+        } else {
+            $companies = $this->companyRepository->findAll();
         }
-        return $this->response($this->companyRepository->findAll());
+
+        $response = [];
+        foreach ($companies as $company) {
+            $response[] = [
+                'id' => $company->getId(),
+                'name' => $company->getName(),
+                'debtor_limit' => $company->getDebtorLimit(),
+            ];
+        }
+
+        return $this->response($response);
     }
 
     /**
@@ -126,7 +138,6 @@ class CompanyController extends BaseController
                                 $productDef['image']
                             );
                             $this->logger->info("Product add :", [$productDef['name']]);
-
                         }
                     }
                 }
@@ -153,9 +164,9 @@ class CompanyController extends BaseController
             // Check invoice existence
             $invoice = $this->invoiceRepository->findOneBy(['company' => $company, 'id' => $inv_id]);
             if ($invoice) {
-                    $products = [];
-                    foreach ($invoice->getProducts() as $product) {
-                        $products[] = [
+                $products = [];
+                foreach ($invoice->getProducts() as $product) {
+                    $products[] = [
                             'name' => $product->getName(),
                             'description' => $product->getDescription(),
                             'quantity' => $product->getQuantity(),
@@ -163,9 +174,9 @@ class CompanyController extends BaseController
                             'image' => $product->getImage(),
                             'unit' => $product->getUnit(),
                         ];
-                    }
+                }
 
-                    return $this->response([
+                return $this->response([
                         'id' => $invoice->getId(),
                         'code' => $invoice->getCode(),
                         'description' => $invoice->getDescription(),
