@@ -53,4 +53,3 @@ security:
 
         - { path: '^/login' }
         - { path: '^/api/*', roles: [ROLE_ADMIN] }
-        - { path: '^/api/pay', roles: [ROLE_ADMIN, ROLE_USER] }
