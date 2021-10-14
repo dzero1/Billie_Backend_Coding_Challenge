@@ -1,0 +1,19 @@
+Next steps
+
+Application Upgrades
+1.Debtor wise invoice amount limit handling
+2.Alerting due invoices amounts and dates to both parties
+3.Automatically processed the agreed late charges when the debtor failed to make a payment by the due date
+4.Payment processing
+5.Issuing sales return notes
+6.Generate company and debtor reports
+7.Audit reports generation
+8.Handling subscriptions according to the institute requirement
+9.Tax and Discounts handling
+
+Technical Upgrades
+1.As a quick thing the login service uses UUID based Authentication Header token. By changing it to JWT we can more secure the connections as it can be signed.
+2.Since this service written as stateless, we have a provision on moving into micro-service architecture.
+3.Need to write Unit tests, integration tests and related tests
+4.Cloud base deployment handling
+5.SNS and SQS to handle message and queues
