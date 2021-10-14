@@ -1,0 +1,109 @@
+How to setup billie challange
+-----------------------------
+
+Note: If you are downloade the complete zip file please forward to step 3.
+
+Steps
+-----
+
+1. Clone the git from https://github.com/dzero1/Billie_Backend_Coding_Challenge.git
+2. Run `composer install` or `composer update` using terminal
+3. Make a schema on mysql (ie: billie)
+4. Update the ".env" file "DATABASE_URL" to match with you mysql host and schema
+5. Run `php bin/console doctrine:migrations:migrate` to install tables.
+6. By running `php bin/console doctrine:fixtures:load` you can load the test users to the system
+7. If you already have Postman Api test tool, you can import "Billie.postman_collection.json" collection to run apis
+8. Serve the developer server using `symfony serve` or follow the below api informations to test the apis
+
+
+
+
+API informations
+----------------
+
+1. Login
+
+API: http://localhost:8000/login
+Method: POST
+Headers: None
+Payload:
+    {
+        "username": "admin",
+        "password": "admin"
+    }
+
+Note: For further api calls you requred to add Authorization header using "apiToken" which is recived with this api
+
+
+2. Register a Company
+
+API: http://localhost:8000/api/company/register
+Method: POST
+Headers: 'Authorization: Bearer {API_TOKEN}' 
+Payload:
+    {
+        "name": "ABC Company Ltd.",
+        "debter_limit": 10000.00
+    }
+
+3. Get all companies
+
+API: http://localhost:8000/api/company
+Method: GET
+Headers: 'Authorization: Bearer {API_TOKEN}' 
+Payload: {}
+
+
+3. Get a company
+
+API: http://localhost:8000/api/company/{company_id}
+Method: GET
+Headers: 'Authorization: Bearer {API_TOKEN}' 
+Payload: {}
+
+
+4. Add invoice
+
+API: http://localhost:8000/api/company/{company_id}/invoice
+Method: POST
+Headers: 'Authorization: Bearer {API_TOKEN}' 
+Payload:
+    {
+        "code": "INV0001002",
+        "description": "Test invoice for Company 2",
+        "debtor": 2,
+        "products":[
+            {
+                "name": "Product 1",
+                "description": "Test Product 1",
+                "quantity": "1",
+                "unit": "kg",
+                "price": "120.00",
+                "image": ""
+            },
+            {
+                "name": "Product 2",
+                "description": "Test Product 2",
+                "quantity": "1",
+                "unit": "kg",
+                "price": "300.00",
+                "image": ""
+            }
+        ]
+    }
+
+
+5. Get Invoice
+
+API: http://localhost:8000/api/company/{company_id}/invoice/{invoice_id}
+Method: GET
+Headers: 'Authorization: Bearer {API_TOKEN}' 
+Payload: {}
+
+
+6. Pay invoice
+
+API: http://localhost:8000/api/company/{company_id}/invoice/{invoice_id}/pay
+Method: POST
+Headers: 'Authorization: Bearer {API_TOKEN}' 
+Payload:
