@@ -64,16 +64,16 @@ class CompanyController extends BaseController
      */
     public function createInvoice($id, Request $request): Response
     {
-        $this->logger->info('fn Company createInvoice', $id);
+        $this->logger->info('fn Company createInvoice', [$id]);
 
         // Get request body json
         $params = json_decode($request->getContent(), true);
-        $this->logger->info("request body json", $params);
+        $this->logger->info("request body json", [$params]);
 
         // Check for the company existence
         $company = $this->companyRepository->findOneBy(['id' => $id]);
         if ($company) {
-            $this->logger->info("Company :", $company->getName());
+            $this->logger->info("Company :", [$company->getName()]);
 
             // Foolproof the date
             $date = new DateTimeImmutable(!isset($params['date']) ? 'now' : $params['date']);
@@ -85,8 +85,8 @@ class CompanyController extends BaseController
                 $debtor = $this->userRepository->findOneBy(['id' => $params['debtor']]);
                 $this->logger->info("Debter :", [$debtor->getId(), $debtor->getUsername()]);
 
-                // Check debtor existing invoices and its limits
-                $debtorInvoices = $debtor->getInvoices();
+                // Check debtor existing and active invoices and its limits
+                $debtorInvoices = $this->invoiceRepository->findBy(['debtor' => $debtor, 'status' => 'ACTIVE']);
                 $total = 0;
                 foreach ($debtorInvoices as $debtorInvoice) {
                     $products = $debtorInvoice->getProducts();
@@ -125,7 +125,7 @@ class CompanyController extends BaseController
                                 $productDef['unit'],
                                 $productDef['image']
                             );
-                            $this->logger->info("Product add :", $productDef['name']);
+                            $this->logger->info("Product add :", [$productDef['name']]);
 
                         }
                     }
