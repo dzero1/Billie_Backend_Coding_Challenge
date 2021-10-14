@@ -28,7 +28,7 @@ class CompanyController extends BaseController
      */
     public function index($id = false): Response
     {
-        $this->logger->info('fn Company index', $id);
+        $this->logger->info('fn Company index', [$id]);
         if ($id) {
             return $this->response($this->companyRepository->findOneBy(['id' => $id]));
         }
@@ -42,7 +42,7 @@ class CompanyController extends BaseController
     {
         $params = json_decode($request->getContent(), true);
 
-        $this->logger->info('fn Company register', $params);
+        $this->logger->info('fn Company register', [$params]);
         if (
             !isset($params['name']) && empty($params['name']) ||
             !isset($params['debter_limit']) && empty($params['debter_limit']) ||
@@ -208,7 +208,7 @@ class CompanyController extends BaseController
                     $params['unit'],
                     $params['image']
                 );
-                $this->logger->info("Product add :", $params['name']);
+                $this->logger->info("Product add :", [$params['name']]);
 
                 return $this->response($product->getId());
             } else {
