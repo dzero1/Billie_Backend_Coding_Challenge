@@ -31,7 +31,18 @@ class InvoiceRepository extends ServiceEntityRepository
         $invoice->setDescription($description);
         $invoice->setDate($date);
         $invoice->setDebtor($debtor);
+        $invoice->setStatus('ACTIVE');
         $invoice->setCreatedAt(new DateTimeImmutable());
+        $this->_em->persist($invoice);
+        $this->_em->flush();
+        return $invoice;
+    }
+    /**
+     * @return Invoice[] Returns an array of Invoice objects
+     */
+    public function markAsPaid($invoice)
+    {
+        $invoice->setStatus('PAID');
         $this->_em->persist($invoice);
         $this->_em->flush();
         return $invoice;

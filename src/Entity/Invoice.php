@@ -60,6 +60,11 @@ class Invoice
      */
     private $debtor;
 
+    /**
+     * @ORM\Column(type="string", length=10, options={"default": "ACTIVE"})
+     */
+    private $status;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -180,6 +185,18 @@ class Invoice
     public function setDebtor(?User $debtor): self
     {
         $this->debtor = $debtor;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

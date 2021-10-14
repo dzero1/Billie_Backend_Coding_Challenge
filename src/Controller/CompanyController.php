@@ -170,6 +170,7 @@ class CompanyController extends BaseController
                         'code' => $invoice->getCode(),
                         'description' => $invoice->getDescription(),
                         'date' => $invoice->getDate(),
+                        'status' => $invoice->getStatus(),
                         'created_at' => $invoice->getCreatedAt(),
                         'updated_at' => $invoice->getUpdatedAt(),
                         'product' => $products,
@@ -210,6 +211,30 @@ class CompanyController extends BaseController
                 $this->logger->info("Product add :", $params['name']);
 
                 return $this->response($product->getId());
+            } else {
+                return $this->response('Invoice not found', 'error');
+            }
+        } else {
+            return $this->response('Company not found', 'error');
+        }
+    }
+
+    /**
+     * @Route("/api/company/{id}/invoice/{inv_id}/pay", name="Pay invoice", methods={"POST"}, format="json")
+     */
+    public function payInvoice($id, $inv_id): Response
+    {
+        $this->logger->info('fn Company payInvoice', [$id, $inv_id]);
+
+        // Check for the company existence
+        $company = $this->companyRepository->findOneBy(['id' => $id]);
+        if ($company) {
+
+            // Check invoice existence
+            $invoice = $this->invoiceRepository->findOneBy(['company' => $company, 'id' => $inv_id]);
+            if ($invoice) {
+                $this->invoiceRepository->markAsPaid($invoice);
+                return $this->response("");
             } else {
                 return $this->response('Invoice not found', 'error');
             }
